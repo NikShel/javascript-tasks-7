@@ -1,11 +1,7 @@
 'use strict';
 
 exports.init = function () {
-    Object.prototype.checkContainsKeys = function (keys) {
-        if (Array.isArray(this) && typeof this !== 'object') {
-            return null;
-        }
-
+    var checkContainsKeys = function (keys) {
         var currentKeys = Object.keys(this);
         for (var i = 0; i < keys.length; i++) {
             if (currentKeys.indexOf(keys[i]) < 0) {
@@ -15,20 +11,18 @@ exports.init = function () {
         return true;
     };
 
-    Object.prototype.checkHasKeys = function (keys) {
-        if (!Array.isArray(this) && typeof this !== 'object') {
-            return null;
-        }
+    Array.prototype.checkContainsKeys = checkContainsKeys;
+    Object.prototype.checkContainsKeys = checkContainsKeys;
 
+    var checkHasKeys = function (keys) {
         var currentKeys = Object.keys(this);
         return (this.checkContainsKeys(keys) && currentKeys.length === keys.length);
     };
 
-    Object.prototype.checkContainsValues = function (values) {
-        if (!Array.isArray(this) && typeof this !== 'object') {
-            return null;
-        }
+    Array.prototype.checkHasKeys = checkHasKeys;
+    Object.prototype.checkHasKeys = checkHasKeys;
 
+    var checkContainsValues = function (values) {
         var currentKeys = Object.keys(this);
         var currentValues = [];
         for (var i = 0; i < currentKeys.length; i++) {
@@ -46,11 +40,10 @@ exports.init = function () {
         return true;
     };
 
-    Object.prototype.checkHasValues = function (values) {
-        if (!Array.isArray(this) && typeof this !== 'object') {
-            return null;
-        }
+    Array.prototype.checkContainsValues = checkContainsValues;
+    Object.prototype.checkContainsValues = checkContainsValues;
 
+    var checkHasValues = function (values) {
         var currentKeys = Object.keys(this);
         var currentValues = [];
         for (var i = 0; i < currentKeys.length; i++) {
@@ -63,35 +56,28 @@ exports.init = function () {
         return (this.checkContainsValues(values) && currentValues.length === values.length);
     };
 
-    Object.prototype.checkHasValueType = function (key, type) {
-        if (!Array.isArray(this) && typeof this !== 'object') {
-            return null;
-        }
+    Object.prototype.checkHasValues = checkHasValues;
+    Array.prototype.checkHasValues = checkHasValues;
 
+    var checkHasValueType = function (key, type) {
         return typeof this[key] === typeof type.call();
     };
 
-    Object.prototype.checkHasLength = function (length) {
-        if (!Array.isArray(this) && typeof this !== 'string') {
-            return null;
-        }
+    Object.prototype.checkHasValueType = checkHasValueType;
+    Array.prototype.checkHasValueType = checkHasValueType;
 
+    var checkHasLength = function (length) {
         return this.length === length;
     };
 
-    Object.prototype.checkHasParamsCount = function (count) {
-        if (typeof this !== 'function') {
-            return null;
-        }
+    Array.prototype.checkHasLength = checkHasLength;
+    Object.prototype.checkHasLength = checkHasLength;
 
+    Function.prototype.checkHasParamsCount = function (count) {
         return this.length === count;
     };
 
-    Object.prototype.checkHasWordsCount = function (count) {
-        if (typeof this !== 'string') {
-            return null;
-        }
-
+    String.prototype.checkHasWordsCount = function (count) {
         return this.split(' ').length === count;
     };
 
