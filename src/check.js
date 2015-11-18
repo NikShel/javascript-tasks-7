@@ -11,7 +11,6 @@ exports.init = function () {
         return true;
     };
 
-    Array.prototype.checkContainsKeys = checkContainsKeys;
     Object.prototype.checkContainsKeys = checkContainsKeys;
 
     var checkHasKeys = function (keys) {
@@ -19,7 +18,6 @@ exports.init = function () {
         return (this.checkContainsKeys(keys) && currentKeys.length === keys.length);
     };
 
-    Array.prototype.checkHasKeys = checkHasKeys;
     Object.prototype.checkHasKeys = checkHasKeys;
 
     var checkContainsValues = function (values) {
@@ -40,7 +38,6 @@ exports.init = function () {
         return true;
     };
 
-    Array.prototype.checkContainsValues = checkContainsValues;
     Object.prototype.checkContainsValues = checkContainsValues;
 
     var checkHasValues = function (values) {
@@ -57,20 +54,17 @@ exports.init = function () {
     };
 
     Object.prototype.checkHasValues = checkHasValues;
-    Array.prototype.checkHasValues = checkHasValues;
 
     var checkHasValueType = function (key, type) {
         return typeof this[key] === typeof type.call();
     };
 
     Object.prototype.checkHasValueType = checkHasValueType;
-    Array.prototype.checkHasValueType = checkHasValueType;
 
     var checkHasLength = function (length) {
         return this.length === length;
     };
 
-    Array.prototype.checkHasLength = checkHasLength;
     Object.prototype.checkHasLength = checkHasLength;
 
     Function.prototype.checkHasParamsCount = function (count) {
